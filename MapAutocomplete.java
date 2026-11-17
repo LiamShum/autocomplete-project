@@ -35,7 +35,12 @@ public class MapAutocomplete {
     
     // Return the frequency of a valid word, or 0 if it is absent
     int getFrequency(String word) {
-
+        String cleanWord = word.replaceAll("\\s+", "").toLowerCase();
+        if(containsWord(cleanWord)) {
+            return map.get(cleanWord);
+        } else {
+            return 0;
+        }
     }
 
     // Return whether the valid word is stored
@@ -62,11 +67,16 @@ public class MapAutocomplete {
      * @return
      */
     boolean selectWord(String word) {
-
+        String cleanWord = word.replaceAll("\\s+", "").toLowerCase();
+        if(containsWord(cleanWord)) {
+            map.put(cleanWord, map.get(cleanWord) + 1);
+            return true;
+        }
+        return false;
     }
 
     // Return the number of distinct words, not the sum of their frequencies
     int size() {
-
+        return map.size();
     }
 }
